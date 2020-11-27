@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>TransmiAPP</title>
+  <title>Prueba Fusepong</title>
 
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url();?>assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -33,9 +33,9 @@
 
     <a class="navbar-brand mr-1" href="<?php echo base_url()."index.php/Controller"?>">Prueba FusePong <i class="fas fa-laptop-code"></i></a>
 
-    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+    <!--button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
-    </button>
+    </button-->
 
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -52,3 +52,7 @@
     </ul>
 
   </nav>
+  <div id="wrapper">
+
+    <div id="content-wrapper">
+    <div class="container-fluid">

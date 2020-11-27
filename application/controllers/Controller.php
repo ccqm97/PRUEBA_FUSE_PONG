@@ -8,10 +8,7 @@ class Controller extends CI_Controller {
 		parent::__construct();
 		$this->load->model("ModelCompany","modelCompany");
 		$this->load->model("ModelUser","modelUser");
-		$this->load->model("ModelVagon","modelVag");
-		$this->load->model("ModelRuta","modelRut");
-		$this->load->model("ModelParadero","modelPar");
-			
+		$this->load->model("ModelTicket","modelTicket");		
 	}
 
 	public function index(){
@@ -39,8 +36,7 @@ class Controller extends CI_Controller {
 	public function home(){
 		if($this->session->userdata('s_id_user')){
 			$this->load->view('layout/header');
-			$this->load->view('layout/menu');
-			$this->load->view('Estacion/GestionarEstacion');
+			$this->load->view('ticket/GestionarTicket');
 			$this->load->view('layout/footer');
 		}else{
 			header("location:".base_url());	
@@ -72,6 +68,10 @@ class Controller extends CI_Controller {
 	
 	public function getCompanys(){
 		echo json_encode($this->modelCompany->getCompanys());
+	}
+
+	public function getTickets(){
+		echo json_encode($this->modelTicket->getTickets($this->session->userdata('s_id_user')));
 	}
 	public function getEstaciones2(){
 		echo json_encode($this->modelCompany->getEstaciones2());

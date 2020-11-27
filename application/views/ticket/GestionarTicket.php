@@ -64,11 +64,11 @@
                 <table class="table table-bordered" id="TableEstaciones" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Nombre Estación</th>
-                            <th>Tipo de estación</th>                            
-                            <th>Estación Vecina 1</th>
-                            <th>Estación Vecina 2</th>
+                            <th>Ticket Id</th>
+                            <th>Empresa</th>
+                            <th>Proyecto</th>                            
+                            <th>Historia de usuario</th>
+                            <th>Estado</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
