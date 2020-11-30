@@ -22,6 +22,7 @@ class ModelUser extends CI_Model {
           if($query->num_rows()>0){
               $session_user = array(
                   's_id_user' => $r->USER_ID ,
+                  's_company_user' => $r->COMPANY_ID ,
                );
               $this->session->set_userdata($session_user);
             return TRUE;

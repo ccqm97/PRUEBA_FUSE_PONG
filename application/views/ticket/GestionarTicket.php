@@ -7,44 +7,27 @@
             </div>
             
             <div class="card-body">
-                <form id="formEditEstacion">                                                    
+                <form id="formCreateTicket">                                                    
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label>Nombre de la estación</label>
-                                    <input type="text" id="NOMBRE_ESTACION" class="form-control" placeholder="Escriba el nombre de la estación" required="required" autofocus="autofocus">                            
+                                    <label>Descripción</label>
+                                    <input type="text" id="desc_UH" class="form-control" placeholder="Escriba el nombre de la estación" required="required" autofocus="autofocus">                            
                                 </div>
                             </div> 
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label>Tipo de estación</label>   
-                                    <select  class="form-control" name="tipo_est_e" id="tipo_est_e" placeholder="First name"  required="required">
-                                        <option value="">Escoga un tipo de estación</option>
+                                    <label>Proyecto</label>   
+                                    <select  class="form-control" name="c_proyecto" id="c_proyecto" placeholder="First name"  required="required">
+                                        <option value="">Escoga un proyecto</option>
                                     </select>                                    
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Estación Vecina 1</label>
-                                    <select  class="form-control" name="est_ini_e" id="est_ini_e"  required="required">
-                                        <option value="">Elija la ciudad vecina</option>
-                                    </select>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Estación Vecina 2</label>
-                                    <select  class="form-control" name="est_fin" id="est_fin_e"  required="required">
-                                        <option value="">Elija la ciudad vecina</option>
-                                    </select>
-                                </div>
-                            </div>
+                            </div>                           
                         </div>
                     </div>                            
                     
-                    <button class="btn btn-success btn-block" id="bntSave" type="submit" href="#"><i class="fas fa-save"></i> Guardar Cambios</button>
+                    <button class="btn btn-success btn-block" id="bntSave" type="submit" href="#"><i class="fas fa-save"></i> Guardar</button>
                 </form>
             </div>
         </div>
@@ -61,7 +44,7 @@
             </div>
             <div class="card-body">
 
-                <table class="table table-bordered" id="TableEstaciones" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="TableTickets" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Ticket Id</th>

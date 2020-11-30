@@ -1,29 +1,16 @@
-$("#editEst").addClass("dropdown-item active");
-$("#EstationDropdown").click();
-$("#editEstacion").hide();
 
-$.post(baseUrl+"index.php/Controller/getTipoEstaciones",
+$.post(baseUrl+"index.php/Controller/getProjects",
   {},
   function(data){
     var tipo = JSON.parse(data);
     $.each(tipo,function(i,item){
-      $('#tipo_est_e').append('<option value="'+item.ID_TIPO_ESTACION+'">'+item.NOMBRE_TIPO_ESTACION+'</option>');
+      $('#c_proyecto').append('<option value="'+item.PROJECT_ID  +'">'+item.PROJECT_NAME+'</option>');      
     });
   }
 );
 
-$.post(baseUrl+"index.php/Controller/getEstaciones2",
-  {},
-  function(data){
-    var tipo = JSON.parse(data);
-    $.each(tipo,function(i,item){
-      $('#est_ini_e').append('<option value="'+item.ID_ESTACION +'">'+item.NOMBRE_ESTACION+'</option>');
-      $('#est_fin_e').append('<option value="'+item.ID_ESTACION +'">'+item.NOMBRE_ESTACION+'</option>');
-    });
-  }
-);
 
-$('#TableEstaciones').DataTable({
+$('#TableTickets').DataTable({
     "language": {
         "emptyTable":     "No hay tickets registrados.",
         "info":         "Mostrando del _START_ al _END_ de _TOTAL_ resultados ",
@@ -70,99 +57,90 @@ $('#TableEstaciones').DataTable({
         {data: 'TICKET_STATE'},
         {"orderable": true,
             render:function(data,type,row){
-                return    '<div class="btn-group btn-group-xs">'+                            
-                            '</button>'+ 
-                                '<button type="button" class="btn btn-success " data-toggle="tooltip" data-placement="top" title="Editar Elemento" onClick="modifyEstation('+row.ID_ESTACION+')" title="Modificar"><i class="fa fa-edit"></i>'+
+                if(row.TICKET_STATE==0){
+                    return    '<div class="btn-group btn-group-xs">'+                                                        
+                            '<button type="button"  style="background-color:red" data-toggle="tooltip" data-placement="top" class="btn btn-success " onClick="changeState('+row.TICKET_ID +','+row.TICKET_STATE +')" title="Desactivar Ticket">Desactivar Ticket <i class="fa fa-ban"></i>'+
                                 ''+
                             '</button>'+
-                            '<button type="button"  style="background-color:red" data-toggle="tooltip" data-placement="top" title="Eliminar Elemento" class="btn btn-success " onClick="borrarEstacion('+row.ID_ESTACION+')" title="Eliminar"><i class="fa fa-trash"></i>'+
+                        '</div>';
+                }
+                return    '<div class="btn-group btn-group-xs">'+                                                        
+                            '<button type="button"  style="background-color:green" data-toggle="tooltip" data-placement="top" class="btn btn-success " onClick="changeState('+row.TICKET_ID +','+row.TICKET_STATE +')" title="Activar Ticket">Activar Ticket <i class="fa fa-check-circle"></i>'+
                                 ''+
                             '</button>'+
                         '</div>';
             }        
         }
     
-    ]
+    ],
+    "columnDefs":[
+        {
+            "targets":[4],
+             "data":"TICKET_STATE",
+             "render": function(data, type, row){
+                 if (data == 0){
+                     return "<span class='label label-success' style='background: Green; color:white;'>Activo</span>";
+                 }else{
+                     return "<span class='label label-danger' style='background: Red; color:white;' >Inactivo</span>";
+                 }
+             } 
+         }        
+         ],
     
 });
 
-var idEstacionAux =0;
-
-function modifyEstation(idEstacion) {
-    idEstacionAux = idEstacion;
-    $("#editEstacion").show();
-    $('html, body').animate({
-        scrollTop: $("#bntSave").offset().top
-    }, 1500);
-    $.post(baseUrl+"index.php/Controller/getEstacionesPorId",
-        {id_est : idEstacion},
-        function(data){
-            var estacion = JSON.parse(data);
-            $.each(estacion,
-                function(i,item){
-                    $("#NOMBRE_ESTACION").val(item.NOMBRE_ESTACION);
-                    $("#tipo_est_e").val(item.ID_TIPO_ESTACION);
-                    $("#est_ini_e").val(item.ID_ESTACION_VECINA_1);
-                    $("#est_fin_e").val(item.ID_ESTACION_VECINA_2);
-                }
-            );
-
-        }
-    );
-}
-
-$("#formEditEstacion").on('submit', 
+$("#formCreateTicket").on('submit', 
         function(evt){
             evt.preventDefault(); 
-            $.post(baseUrl+"index.php/Controller/editEstaciones",
-                {   ID_ESTACION:idEstacionAux,
-                    ID_TIPO_ESTACION:$("#tipo_est_e").val(),
-                    NOMBRE_ESTACION: $("#NOMBRE_ESTACION").val(),
-                    ID_ESTACION_VECINA_1:  $("#est_ini_e").val(),
-                    ID_ESTACION_VECINA_2:  $("#est_fin_e").val()
+            $.post(baseUrl+"index.php/Controller/saveUserHistory",
+                {   USER_HISTORY_DESCRIPTION:$("#desc_UH").val(),
+                    PROJECT_ID :$("#c_proyecto").val(),                   
                 },
                 function(data){
-                    if (data==1) {
-                        var oTable = $('#TableEstaciones').DataTable( ); //actualizar datatable
-                        oTable.ajax.reload();
-                        $("#editEstacion").hide();
-                        $("#NOMBRE_ESTACION").val("");
-                        $("#tipo_est_e").val("");
-                        $("#est_ini_e").val("");
-                        $("#est_fin_e").val("");
-                        $('html, body').animate({
-                            scrollTop: $("#divTable").offset().top
-                        }, 1500);
-                        new PNotify({
-                            title: 'Se actualizó la estación',
-                            text: "Se ha modificado la informacón de la estación." ,
-                            type: 'success',
-                            styling: 'bootstrap3'
-                        });
+                    if (data!=0) {
+                        $.post(baseUrl+"index.php/Controller/saveTicket",
+                            {USER_HISTORY_ID:data,
+                            },
+                            function(data){
+                               if (data) {
+                                    var oTable = $('#TableTickets').DataTable( ); //actualizar datatable
+                                    oTable.ajax.reload();                       
+                                    $("#desc_UH").val("");
+                                    $("#c_proyecto").val("");
+                                    new PNotify({
+                                        title: 'Se ha levantado un nuevo ticket',
+                                        text: "Se ha creado el ticket con la nueva historia de usuario." ,
+                                        type: 'success',
+                                        styling: 'bootstrap3'
+                                    });
+                               }
+                            }
+                        );                       
                         
                     } else{
-                        alert("Error al modificar estacion")
+                        alert("Error al crear el ticket")
                     }
                 }
             );
         }
     );
 
-function borrarEstacion(idEstacion) {
-    $.post(baseUrl+"index.php/Controller/deleteEstacion",
-        { ID_ESTACION:idEstacion},
+function changeState(ticketId, state) {
+    $.post(baseUrl+"index.php/Controller/changeTicketState",
+        { TICKET_ID:ticketId,
+            TICKET_STATE:state},
         function(data){
-            if (data==1) {
-                var oTable = $('#TableEstaciones').DataTable( ); //actualizar datatable
+            if (data) {
+                var oTable = $('#TableTickets').DataTable( ); //actualizar datatable
                 oTable.ajax.reload();
                 new PNotify({
-                    title: 'Se borró la estación',
-                    text: "Se ha borrado la estación." ,
+                    title: 'Actualizando ticket',
+                    text: "Se ha cambiado el estado del ticket a Inactivo" ,
                     type: 'success',
                     styling: 'bootstrap3'
                 });
             }else{
-                alert("error al borrar")
+                alert("error al cambair el estado del ticket")
             }
            
         }

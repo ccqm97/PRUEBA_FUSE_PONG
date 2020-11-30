@@ -1,10 +1,10 @@
       </div>
       <!-- /.container-fluid -->
     <!-- Sticky Footer -->
-    <footer class="sticky-footer">
+    <footer class="sticky-footer" style="width: calc(100% - 0px);">
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
-            <span>Copyright © TransmiApp 2020</span>
+            <span>Copyright © FSP 2020</span>
             </div>
         </div>
     </footer>
@@ -19,6 +19,32 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>  
+
+  <!--POP UP CERRAR SESION -->
+  <div class="container">
+    <!-- POP UP -->
+    <div class="modal fade"  tabindex="-1" id="myModal" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header"style="background: linear-gradient(1deg, #e08106,#fbce50);">
+          
+            <h4 class="modal-title" style="color:white;"><strong>Cerrar Sesión</string></h4>
+          </div>
+          <div class="modal-body">
+            <h3>¿Está seguro que desea cerrar sesión?</h3>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-block btn-primary" style="color:white;" href="<?php echo base_url()."index.php/Controller/logout"?>"> <i class="fa fa-sign-out fa-fw"></i>Confirmar</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--FIN POP UP -->
+    </div>
+    <!--/POP UP CERRAR SESION -->
 
   <!-- Bootstrap core JavaScript-->
   <script src="<?php echo base_url();?>assets/vendor/jquery/jquery.min.js"></script>

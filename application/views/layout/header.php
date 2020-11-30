@@ -29,7 +29,7 @@
 
 <body id="page-top">
 
-  <nav class="navbar navbar-expand navbar-dark bg-danger static-top">
+  <nav class="navbar navbar-expand navbar-dark bg-primary static-top">
 
     <a class="navbar-brand mr-1" href="<?php echo base_url()."index.php/Controller"?>">Prueba FusePong <i class="fas fa-laptop-code"></i></a>
 
@@ -45,7 +45,7 @@
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="modal"  data-target="#logoutModal"aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="modal"  data-target="#myModal" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-sign-out-alt"></i> Salir
         </a>
       </li>

@@ -23,4 +23,18 @@ class ModelTicket extends CI_Model {
         return $query->result();
     }
 
+    function changeTicketState($ticketID,$param){
+        $campos = array(
+			'TICKET_STATE' => $param['TICKET_STATE']
+		);
+        $this->db->where('TICKET_ID',$ticketID);
+        $this->db->update('ticket',$campos);
+        echo("Sdsd".$param['TICKET_STATE']);
+        if ($this->db->affected_rows() > 0) {
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
+
 }
