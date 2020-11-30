@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'fuse_pong',
+	'hostname' => 'aticingenieria.com',
+	'username' => 'aticin_wp',
+	'password' => 'Orion3001*',
+	'database' => 'aticin_database',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
